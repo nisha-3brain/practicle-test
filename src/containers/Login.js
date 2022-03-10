@@ -33,12 +33,11 @@ function Login() {
   };
 
   useEffect(() => {
-    let { birthDate } = userData;
-    let bDate = birthDate.split("/");
-    let currentDate = moment().format("DD/MM/YYYY");
-    let curDate = currentDate.split("/");
-
     if (canShowNotification && !showNotification) {
+      let { birthDate } = userData;
+      let bDate = birthDate.split("/");
+      let currentDate = moment().format("DD/MM/YYYY");
+      let curDate = currentDate.split("/");
       if (bDate[0] === curDate[0] && bDate[1] === curDate[1]) {
         notification.open({
           message: "Happy Birthday!!!",
