@@ -1,0 +1,17 @@
+.ant-tabs-tab-btn {
+  width: 11rem !important;
+  font-size: 18px !important;
+  font-weight: 600;
+  text-align: center;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.todo-data {
+  font-weight: 500;
+}
