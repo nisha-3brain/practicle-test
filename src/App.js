@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <React.Suspense fallback={<Loader />}>
-        <BrowserRouter basename={"/deployment"}>
+        <BrowserRouter basename="/">
           <Routes>
             <Route element={<ProtectedRoutes />}>
               <Route path="/ToDo">
@@ -24,10 +24,7 @@ function App() {
                 <Route path="Update/:id" element={<AddTodo />}></Route>
               </Route>
             </Route>
-            <Route
-              path={`${process.env.PUBLIC_URL}/`}
-              element={<AuthPage />}
-            ></Route>
+            <Route path="/" element={<AuthPage />}></Route>
             <Route path="*" element={<NoPage />} />
           </Routes>
         </BrowserRouter>

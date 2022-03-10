@@ -9,9 +9,10 @@ function Login() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [error, setError] = useState("");
-  let [showNotification, setShowNotification] = useState(false);
 
   const userData = JSON.parse(localStorage.getItem("user"));
+  const [canShowNotification, setCanShowNotification] = useState(false);
+  const showNotification = localStorage.getItem("notificationShown");
 
   const onFinish = (values) => {
     if (values && !userData) {
@@ -22,7 +23,7 @@ function Login() {
         values.password === userData.password
       ) {
         setError("");
-        setShowNotification(true);
+        setCanShowNotification(true);
         localStorage.setItem("loggedIn", true);
         navigate("/ToDo");
       } else {
@@ -32,11 +33,12 @@ function Login() {
   };
 
   useEffect(() => {
-    if (showNotification) {
-      let { birthDate } = userData;
-      let bDate = birthDate.split("/");
-      let currentDate = moment().format("DD/MM/YYYY");
-      let curDate = currentDate.split("/");
+    let { birthDate } = userData;
+    let bDate = birthDate.split("/");
+    let currentDate = moment().format("DD/MM/YYYY");
+    let curDate = currentDate.split("/");
+    
+    if (canShowNotification && !showNotification) {
       if (bDate[0] === curDate[0] && bDate[1] === curDate[1]) {
         notification.open({
           message: "Happy Birthday!!!",
@@ -44,9 +46,10 @@ function Login() {
             "We hope that you have a very happy birthday and a great year ahead.",
         });
       }
+      localStorage.setItem("notificationShown", true);
     }
     // eslint-disable-next-line
-  }, [showNotification]);
+  }, [showNotification, canShowNotification]);
 
   const onReset = () => {
     form.resetFields();
@@ -104,7 +107,7 @@ function Login() {
           <StyledButton type="primary" htmlType="submit">
             Submit
           </StyledButton>
-          
+
           <StyledResetButton htmlType="button" onClick={onReset}>
             Reset
           </StyledResetButton>
